@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{BF0DDC6B-D024-4A58-87FD-207C1C9CA38F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Papillon</RootNamespace>
+    <AssemblyName>PapillonCore_CSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' Or '$(Configuration)|$(Platform)' == 'Debug|Win32'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(PAPILLON_REPOSITORY)\Build\Windows_$(PAPILLON_ARCHITECTURE)_$(PAPILLON_COMPILER)\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' Or '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(PAPILLON_REPOSITORY)\Build\Windows_$(PAPILLON_ARCHITECTURE)_$(PAPILLON_COMPILER)\bin\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(PAPILLON_REPOSITORY)\Build\Windows_$(PAPILLON_ARCHITECTURE)_$(PAPILLON_COMPILER)\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(PAPILLON_REPOSITORY)\Build\Windows_$(PAPILLON_ARCHITECTURE)_$(PAPILLON_COMPILER)\bin\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Win32'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Win64'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Win64'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\src\ESerialisationFormat.cs" />
+    <Compile Include="..\src\PAnalytics.cs" />
+    <Compile Include="..\src\Papillon.cs" />
+    <Compile Include="..\src\PapillonPINVOKE.cs" />
+    <Compile Include="..\src\PapillonSDK.cs" />
+    <Compile Include="..\src\PByteArray.cs" />
+    <Compile Include="..\src\PByteStream.cs" />
+    <Compile Include="..\src\PClassId.cs" />
+    <Compile Include="..\src\PColour3f.cs" />
+    <Compile Include="..\src\PColour3i.cs" />
+    <Compile Include="..\src\PComparer.cs" />
+    <Compile Include="..\src\PDate.cs" />
+    <Compile Include="..\src\PDateTime.cs" />
+    <Compile Include="..\src\PDescriber.cs" />
+    <Compile Include="..\src\PDescription.cs" />
+    <Compile Include="..\src\PDescriptor.cs" />
+    <Compile Include="..\src\PDetection.cs" />
+    <Compile Include="..\src\PDetectionList.cs" />
+    <Compile Include="..\src\PDetector.cs" />
+    <Compile Include="..\src\PDetectorOptions.cs" />
+    <Compile Include="..\src\PEvent.cs" />
+    <Compile Include="..\src\PEventBuilder.cs" />
+    <Compile Include="..\src\PExampleSet.cs" />
+    <Compile Include="..\src\PFeatureMap.cs" />
+    <Compile Include="..\src\PFeaturePoint.cs" />
+    <Compile Include="..\src\PFeatureRectangle.cs" />
+    <Compile Include="..\src\PFileIO.cs" />
+    <Compile Include="..\src\PFrame.cs" />
+    <Compile Include="..\src\PFrameToFrameTracker.cs" />
+    <Compile Include="..\src\PGPSLocation.cs" />
+    <Compile Include="..\src\PGuid.cs" />
+    <Compile Include="..\src\PIdentifyResult.cs" />
+    <Compile Include="..\src\PIdentifyResults.cs" />
+    <Compile Include="..\src\PImage.cs" />
+    <Compile Include="..\src\PImageFilter.cs" />
+    <Compile Include="..\src\PImageFilterOptions.cs" />
+    <Compile Include="..\src\PInputVideoStream.cs" />
+    <Compile Include="..\src\PListDescription.cs" />
+    <Compile Include="..\src\PListDescriptor.cs" />
+    <Compile Include="..\src\PListEvent.cs" />
+    <Compile Include="..\src\PListGuid.cs" />
+    <Compile Include="..\src\PListImage.cs" />
+    <Compile Include="..\src\PListInt.cs" />
+    <Compile Include="..\src\PListString.cs" />
+    <Compile Include="..\src\PLog.cs" />
+    <Compile Include="..\src\PLogStream.cs" />
+    <Compile Include="..\src\PMapStringFeaturePoint.cs" />
+    <Compile Include="..\src\PMapStringFeatureRectangle.cs" />
+    <Compile Include="..\src\PMapIteratorStringFeaturePoint.cs" />
+    <Compile Include="..\src\PMapIteratorStringFeatureRectangle.cs" />
+    <Compile Include="..\src\PMatchScore.cs" />
+    <Compile Include="..\src\PMath.cs" />
+    <Compile Include="..\src\PMemoryStream.cs" />
+    <Compile Include="..\src\PObjectType.cs" />
+    <Compile Include="..\src\POutputVideoStream.cs" />
+    <Compile Include="..\src\PPath.cs" />
+    <Compile Include="..\src\PPoint2Df.cs" />
+    <Compile Include="..\src\PPoint2DfList.cs" />
+    <Compile Include="..\src\PPoint2Di.cs" />
+    <Compile Include="..\src\PPolygonf.cs" />
+    <Compile Include="..\src\PPolygoni.cs" />
+    <Compile Include="..\src\PProperties.cs" />
+    <Compile Include="..\src\PRectanglef.cs" />
+    <Compile Include="..\src\PRectanglei.cs" />
+    <Compile Include="..\src\PResult.cs" />
+    <Compile Include="..\src\PSizef.cs" />
+    <Compile Include="..\src\PSizei.cs" />
+    <Compile Include="..\src\PSocket.cs" />
+    <Compile Include="..\src\PString.cs" />
+    <Compile Include="..\src\PStringList.cs" />
+    <Compile Include="..\src\PTextFile.cs" />
+    <Compile Include="..\src\PTime.cs" />
+    <Compile Include="..\src\PTimer.cs" />
+    <Compile Include="..\src\PTrack.cs" />
+    <Compile Include="..\src\PUri.cs" />
+    <Compile Include="..\src\PUtils.cs" />
+    <Compile Include="..\src\PVersion.cs" />
+    <Compile Include="..\src\PVideoTools.cs" />
+    <Compile Include="..\src\PWatchlist.cs" />
+    <Compile Include="..\src\PWatchlistOptions.cs" />
+    <Compile Include="..\src\VectorByte.cs" />
+    <Compile Include="..\src\VectorDescription.cs" />
+    <Compile Include="..\src\VectorDescriptor.cs" />
+    <Compile Include="..\src\VectorEvent.cs" />
+    <Compile Include="..\src\VectorGuid.cs" />
+    <Compile Include="..\src\VectorImage.cs" />
+    <Compile Include="..\src\VectorInt.cs" />
+    <Compile Include="..\src\VectorPoint2Df.cs" />
+    <Compile Include="..\src\VectorPoint2Di.cs" />
+    <Compile Include="..\src\VectorString.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

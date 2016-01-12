@@ -10,7 +10,7 @@ SET(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 SET(PYTHON_MODULE_NAME Papillon)
 
-SET_SOURCE_FILES_PROPERTIES(../Papillon.i PROPERTIES CPLUSPLUS ON)
+SET_SOURCE_FILES_PROPERTIES(Papillon.i PROPERTIES CPLUSPLUS ON)
 
 if(POLICY CMP0026)
   cmake_policy(SET CMP0026 OLD)
@@ -19,7 +19,7 @@ endif()
 
 SET(SWIG_MODULE_${PYTHON_MODULE_NAME}_EXTRA_DEPS ${PapillonCoreLibPath})
 
-SWIG_ADD_MODULE(${PYTHON_MODULE_NAME} python ../Papillon.i)
+SWIG_ADD_MODULE(${PYTHON_MODULE_NAME} python Papillon.i)
 
 SWIG_LINK_LIBRARIES(${PYTHON_MODULE_NAME} ${PAPILLON_LIBRARIES} ${PYTHON_LIBRARIES})
 
@@ -32,6 +32,7 @@ else()
 endif()
 
 INSTALL(FILES PapillonCoreExample.py PapillonCoreVideo.py PapillonFaceDetect.py PapillonMotionDetect.py PapillonPersonDetect.py DESTINATION examples/python)
+
 
 
 #ADD_DEPENDENCIES(${PYTHON_MODULE_NAME} PapillonCore)

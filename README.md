@@ -17,6 +17,6 @@ Then set up your environment...
 
 export LD_LIBRARY_PATH=/opt/Papillon/lib:/home/xxx/_install/lib
 export PYTHONPATH=/home/xxx/_install/lib
-export RUBYPATH=/home/xxx/_install/lib
+export RUBYLIB=/home/xxx/_install/lib
 
 Then you can try to run some of the examples.

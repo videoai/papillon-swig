@@ -1,3 +1,7 @@
+require 'papillon/papillon'
+
+# ---- start Papillon::PString patch
+
 # The current SWIG interface file for Ruby produces a broken version of the 
 # Papillon::PString class, which needs to be patched in order to work. 
 
@@ -18,7 +22,6 @@
 #
 # which I've not bothered to incorporate in the patch below.
 
-
 class Papillon::PString
   alias_method :old_initialize, :initialize
   alias_method :old_c_str, :c_str
@@ -31,3 +34,4 @@ class Papillon::PString
     old_c_str.force_encoding("UTF-8")
   end
 end
+# ---- end Papillon::PString patch

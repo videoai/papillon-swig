@@ -5,6 +5,7 @@ require 'rake/clean'
 CLEAN.include('ext/**/*{.o,.log,.so,.bundle}')  
 CLEAN.include('ext/**/Makefile')  
 CLOBBER.include('lib/*{.so,.bundle}')
+CLOBBER.include('ext/**/*.cxx')
 
 desc 'Generate cxx source files from SWIG.'
 task :swig do  

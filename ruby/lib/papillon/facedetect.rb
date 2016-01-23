@@ -1,8 +1,4 @@
-$:.unshift File.dirname(__FILE__)
-# Either the generated Ruby bindings (papillon.so) need to be in the current 
-# directory of this file, or papillon needs to be installed as a gem.
 require 'papillon'
-require 'PapillonPStringPatch'
 
 module Papillon
   extend self

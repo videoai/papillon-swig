@@ -11,12 +11,15 @@ task :swig do
   Dir.chdir("ext/papillon") do
     sh "swig -I$PAPILLON_INSTALL_DIR/include/PapillonCore -o papillon.cxx -ruby -c++ ../../Papillon.i"
   end
-end  
+end
 
 desc 'Build the extension.'
-task :build => :swig do
+task :build do
   Dir.chdir("ext/papillon") do
     ruby "extconf.rb"
     sh "make"
   end
 end
+
+desc 'Build the extension including fresh SWIG C++ file.'
+task :full_build => [:swig, :build]

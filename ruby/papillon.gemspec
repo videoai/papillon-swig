@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'papillon'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.licenses    = ['MIT']
   s.summary     = "Papillon SDK"
   s.description = "SWIG/C++ bindings for the Papillon SDK"

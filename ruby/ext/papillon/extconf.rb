@@ -9,5 +9,5 @@ with_cflags("-x c++") do
   unless find_library("PapillonCore", nil, sdk_install_dir + "/lib")
     abort "PapillonCore library files are missing. Please install the Papillon SDK."
   end
-  create_makefile('papillon') 
+  create_makefile('papillon/papillon') 
 end

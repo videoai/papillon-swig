@@ -1,4 +1,4 @@
-require 'papillon'
+require File.join(File.dirname(__FILE__), "..", "papillon")
 
 module Papillon
   extend self

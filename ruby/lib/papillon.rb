@@ -4,23 +4,22 @@ require 'papillon/papillon'
 
 # The current SWIG interface file for Ruby produces a broken version of the 
 # Papillon::PString class, which needs to be patched in order to work. 
+#
+# Until the SWIG interface file is fixed appropriately, please use the method
+# s() on the Papillon module to generate PStrings, e.g.:
+# 
+# Papillon.s("my string")
+#
+# See also the examples in this package for more information.
+# 
 
-# Currently it still produces garbled output to the console, but as far as I can
-# see, functionality actually works.
-
-# There is one other caveat however. Strings don't compare well with the current
-# state, and thus this:
-#
-#   Papillon::PDetector::Create(
-#     Papillon::PString.new("FaceDetector"), 
-#     Papillon::PString.new(""), 
-#     detector).OrDie()
-#
-# will die. The PString that's being used has to be clipped manually, i.e.: 
-#
-#   Papillon::PString.new("FaceDetector").Substring(0, "FaceDetector".length)
-#
-# which I've not bothered to incorporate in the patch below.
+module Papillon
+  extend self
+  
+  def s string
+    Papillon::PString.new(string).Substring(0, string.length)
+  end
+end
 
 class Papillon::PString
   alias_method :old_initialize, :initialize

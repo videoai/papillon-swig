@@ -14,20 +14,19 @@ module Papillon
       :threshold          => 0.0
     }.merge(opts)
 
-    Papillon::PapillonSDK::Initialise(Papillon::PString.new(opts[:app_name])).OrDie()
+    Papillon::PapillonSDK::Initialise(s(opts[:app_name])).OrDie()
     Papillon::PLog::OpenConsoleLogger() if opts[:debug]
 
     inputStream = Papillon::PInputVideoStream.new
     outputStream = Papillon::POutputVideoStream.new()
-    Papillon::PInputVideoStream::Open(Papillon::PString.new(opts[:input_video]), inputStream).OrDie()
-    Papillon::POutputVideoStream::Open(Papillon::PString.new(opts[:output_video]), outputStream).OrDie()
+    Papillon::PInputVideoStream::Open(s(opts[:input_video]), inputStream).OrDie()
+    Papillon::POutputVideoStream::Open(s(opts[:output_video]), outputStream).OrDie()
 
     detector = Papillon::PDetector.new
-    facedetectorstring = Papillon::PString.new("FaceDetector").Substring(0, "FaceDetector".length)
-    Papillon::PDetector::Create(facedetectorstring, Papillon::PString.new(""), detector).OrDie()
+    Papillon::PDetector::Create(s("FaceDetector"), s(""), detector).OrDie()
 
     detectorOptions = Papillon::PDetectorOptions.new
-    detectorOptions.SetIntParameter(Papillon::PString.new("LOCALISER"), opts[:localiser])
+    detectorOptions.SetIntParameter(s("LOCALISER"), opts[:localiser])
     detectorOptions.SetMinDetectionSize(opts[:min_detection_size])
     detectorOptions.SetThreshold(opts[:threshold])
 

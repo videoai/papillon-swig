@@ -29,3 +29,6 @@
 
 # Debris
 .DS_Store
+build/
+
+java/PapillonJava/

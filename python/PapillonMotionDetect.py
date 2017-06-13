@@ -1,35 +1,48 @@
+#------------------------------------------------------------------------------
+# Copyright (C) 2015-2016 Digital Barriers plc. All rights reserved.
+# Contact: http://www.digitalbarriers.com/
+# 
+# This file is part of the Papillon SDK.
+# 
+# You can't use, modify or distribute any part of this file without
+# the explicit written agreements of Digital Barriers plc.
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# Description: 
+# This example shows how to do basic motion detection using Papillon SDK in python.
+# The video stream with overlaid motion detection is recorded to an output video file.
+#------------------------------------------------------------------------------
+
 import Papillon as papillon
 import os
-    
-print "Running Papillon Motion Detector"
-papillon.PapillonSDK.Initialise("Papillon Motion Detector Example").OrDie();
 
-# Set-up 
+# Sample files folder
+SAMPLE_DIR = papillon.PPath_Join(papillon.PUtils_GetEnv("PAPILLON_INSTALL_DIR"), "Data", "Samples")
+
+papillon.PapillonSDK.Initialise().OrDie();
+
+# Set-up: create a Motion detector
 detector = papillon.PDetector()
-detectorOptions = papillon.PDetectorOptions()
-detectorOptions.SetMinDetectionSize(papillon.PSizei(50, 50))
-papillon.PDetector_Create("MotionDetector", "type=BACKGROUND_SUBSTRACTION", detector)
-
+papillon.PDetector_Create("MotionDetector", papillon.PProperties.CreateFromKeyValueString("type=BACKGROUND_SUBSTRACTION"), detector)
+detector.SetMinDetectionSize(papillon.PSizei(50, 50))
 
 # Input video stream
-path = os.getenv('PAPILLON_INSTALL_DIR') + "/Data/Samples/glasgow.avi"
 inputStream = papillon.PInputVideoStream()
-papillon.PInputVideoStream_Open(path, inputStream).OrDie()
+papillon.PInputVideoStream_Open(papillon.PPath_Join(SAMPLE_DIR, "glasgow.avi"), inputStream).OrDie()
 
 # Output video stream
 outputStream = papillon.POutputVideoStream()
-papillon.POutputVideoStream_Open("output.mov?fps=10.0", outputStream).OrDie()
+papillon.POutputVideoStream_Open("output.avi?fps=10.0", outputStream).OrDie()
 
 frame = papillon.PFrame()
-while(inputStream.GetFrame(frame).Ok()) :
+while inputStream.GetFrame(frame).Ok():
     
     detectionList = papillon.PDetectionList()
-    detector.Detect(frame, detectorOptions, detectionList)
+    detector.Detect(frame, detectionList)
     image = frame.GetImage()
     papillon.PUtils.DrawDetectionList(image, detectionList)
-    image.Display("Motion")
+    image.Display("Papillon SDK - Basic Motion Detection")
 
     # write to stream    
-    outputStream.PutImage(image)
-    
-   
+    outputStream.PutFrame(papillon.PFrame(image))

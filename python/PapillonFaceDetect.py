@@ -1,35 +1,41 @@
+#------------------------------------------------------------------------------
+# Copyright (C) 2015-2016 Digital Barriers plc. All rights reserved.
+# Contact: http://www.digitalbarriers.com/
+# 
+# This file is part of the Papillon SDK.
+# 
+# You can't use, modify or distribute any part of this file without
+# the explicit written agreements of Digital Barriers plc.
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# Description: 
+# This example shows how to use Face Detection module from Papillon SDK in python
+#------------------------------------------------------------------------------
+
 import Papillon as papillon
 
+# Sample files folder
+SAMPLE_DIR = papillon.PPath_Join(papillon.PUtils_GetEnv("PAPILLON_INSTALL_DIR"), "Data", "Samples")
+
 # Never forget to initialise the papillon SDK and load the plugins
-papillon.PapillonSDK.Initialise('A Python Example').OrDie()
+papillon.PapillonSDK.Initialise().OrDie()
 
 # Set-up the console logger
 papillon.PLog.OpenConsoleLogger()
 
-# We have some files to use here    
-SAMPLE_DIR = papillon.PPath_Join(papillon.PUtils_GetEnv("PAPILLON_INSTALL_DIR"), "Data", "Samples")
-
 # Set-up face detector
 detector = papillon.PDetector()
-detectorOptions = papillon.PDetectorOptions()
-detectorOptions.SetIntParameter("LOCALISER", 0) # Set to 1 if you want localisation
-detectorOptions.SetMinDetectionSize(50)
-detectorOptions.SetThreshold(1.0)
-papillon.PDetector_Create("FaceDetector", "", detector)
-
+papillon.PDetector_Create("FaceDetector2", papillon.PProperties(), detector)
+detector.Set(papillon.PDetector.C_PARAM_BOOL_LOCALISER.c_str(), True)
+detector.SetMinDetectionSize(80)
 
 # Input a video stream from you-tube
 inputStream = papillon.PInputVideoStream()
-papillon.PInputVideoStream_Open("https://youtu.be/Wi7k6IPYNj4", inputStream).OrDie()
-frame = papillon.PFrame()
+papillon.PInputVideoStream_Open(papillon.PPath_Join(SAMPLE_DIR, "face_log.avi"), inputStream).OrDie()
 
-while(inputStream.GetFrame(frame).Ok()) :
+frame = papillon.PFrame()
+while inputStream.GetFrame(frame).Ok() :
     detectionList = papillon.PDetectionList()
-    detector.Detect(frame, detectorOptions, detectionList)
-    papillon.PUtils_DisplayDetectionList(frame, detectionList, "Face Detection", 0.5)
-    
-  
-    
-    
-    
-   
+    detector.Detect(frame, detectionList)
+    papillon.PUtils_DisplayDetectionList(frame, detectionList, "Papillon SDK - Face Detection")

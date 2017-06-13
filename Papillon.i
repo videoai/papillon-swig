@@ -1,12 +1,27 @@
-#ifdef SWIGRUBY
-%module papillon
+#ifdef SWIGJAVA
+%module PapillonJava
 #else
 %module Papillon
 #endif
 
+%{
+#define SWIG_FILE_WITH_INIT
+%}
+
 %include <std_string.i>
 %include <std_vector.i>
+%include <std_shared_ptr.i>
 
+#ifdef WITH_PYTHON_NUMPY
+%include <numpy.i>
+%init %{
+import_array();
+%}
+#endif
+
+
+// Make sure int64 gets defined properly
+%include <stdint.i>
 
 #ifndef SWIGGO
 %include <std_wstring.i>
@@ -14,6 +29,7 @@
 
 %{
 #include <PapillonCore.h>
+//#include <PSUpervisor.h>
 %}
 
 #define PAPILLON_API_CORE
@@ -24,7 +40,7 @@
 #pragma SWIG nowarn=362 // the operator=
 
 #ifdef SWIGPYTHON
-
+        
         %extend papillon::PString
         {
           const char *__str__()
@@ -55,7 +71,58 @@
         }
 
         %typemap(typecheck) const papillon::PString & = PyObject *;
+    
 
+        %extend papillon::PByteArray {
+			std::vector<double> ToDoubleVector() {
+				int length = self->Size() / sizeof(double);
+				std::vector<double>vec;
+				vec.resize(length);
+				memcpy(&vec[0], self->AsPtr<double>(), self->Size());
+				return vec;
+			}
+        }
+       
+        %extend papillon::PDescriptor {
+			std::vector<double> ToDoubleVector() {
+				papillon::PByteArray ba;
+				self->GetDescriptor(ba);
+				int length = ba.Size() / sizeof(double);
+				std::vector<double>vec;
+				vec.resize(length);
+				memcpy(&vec[0], ba.AsPtr<double>(), ba.Size());
+				return vec;
+			}
+        }
+
+#ifdef WITH_PYTHON_NUMPY
+        %extend papillon::PByteArray {
+			PyObject * ToDoubleNumPyArray() {
+				int length = self->Size() / sizeof(double);
+				double * p = self->AsPtr<double>();
+				npy_intp dims[1];
+				dims[0]=length;
+				return PyArray_SimpleNewFromData(1, dims, NPY_DOUBLE, (void*)p);
+			}
+        }
+
+        %extend papillon::PDescriptor {
+			PyObject * ToDoubleNumPyArray() {
+				papillon::PByteArray ba;
+				self->GetDescriptor(ba);
+				int length = ba.Size() / sizeof(double);
+				double * p = ba.AsPtr<double>();
+				npy_intp dims[1];
+				dims[0]=length;
+				return PyArray_SimpleNewFromData(1, dims, NPY_DOUBLE, (void*)p);
+			}
+        }
+#endif
+
+		namespace std {
+			%template(VectorDouble) vector<double>;
+		}
+        
 #endif
 
 #ifdef SWIGCSHARP
@@ -133,6 +200,8 @@ namespace papillon {
 
 
 class PString;
+
+
 
 ////////////
 // PString
@@ -237,13 +306,91 @@ class PString;
 
 #endif
 
-%include "PapillonDataTypes.h"
+
+#ifdef SWIGJAVA
+%include java.i
+%apply const papillon::PString & {papillon::PString &};
+#endif
+
+%include "PapillonCommon.h"
 %include "PapillonSDK.h"
+%include "PObject.h"
+
+
+
+// lets make some nice strong boxed c/c++-types to use in Python 
+%include "PBoxing.h"
+%template(PBool) papillon::PBoxing<bool>;
+%template(PInt8) papillon::PBoxing<papillon::int8>;
+%template(PInt16) papillon::PBoxing<papillon::int16>;
+%template(PInt32) papillon::PBoxing<papillon::int32>;
+%template(PInt64) papillon::PBoxing<papillon::int64>;
+%template(PUInt8) papillon::PBoxing<papillon::uint8>;
+%template(PUInt16) papillon::PBoxing<papillon::uint16>;
+%template(PUInt32) papillon::PBoxing<papillon::uint32>;
+%template(PUInt64) papillon::PBoxing<papillon::uint64>;
+%template(PFloat) papillon::PBoxing<float>;
+%template(PDouble) papillon::PBoxing<double>;
+
+%include "PPluginInstance.h"
+%extend papillon::PPluginInstance
+{
+  
+  papillon::PResult SetBoolean(const papillon::PString & key, bool v)
+  {
+    return self->Set(key, v);
+  }
+
+  bool GetBoolean(const papillon::PString & key)
+  {
+    bool v=false;
+    self->Get(key, v);
+    return v;
+  }
+  
+  papillon::PResult SetInt(const papillon::PString & key, papillon::int32 v)
+  {
+    return self->Set(key, v);
+  }
+
+  papillon::int32 GetInt(const papillon::PString & key)
+  {
+    papillon::int32 v=-1;
+    self->Get(key, v);
+    return v;
+  }
+
+  papillon::PResult SetString(const papillon::PString & key, const papillon::PString & value)
+  {
+    return self->Set(key, value);
+  }
+  
+  papillon::PString GetString(const papillon::PString & key)
+  {
+    papillon::PString v;
+    self->Get(key, v);
+    return v;
+  }
+
+  papillon::PResult SetDouble(const papillon::PString & key, double value)
+  {
+    return self->Set(key, value);
+  }
+ 
+  double GetDouble(const papillon::PString & key)
+  {
+    double v=-1.0;
+    self->Get(key, v);
+    return v;
+  }
+}
+
+%include "PList.h"
+%include "PMap.h"
+%template(PStringMap) papillon::PMap<papillon::PString, papillon::PObject>;
 %include "PByteStream.h"
-%include "PSerialisationInterface.h"
 %include "PByteArray.h"
-%include "PClassId.h"
-%include "PColour3f.h"
+%template(AsPtrDouble) papillon::PByteArray::AsPtr<double>;
 %include "PColour3i.h"
 %include "PComparer.h"
 %include "PPoint2Df.h"
@@ -267,6 +414,11 @@ class PString;
 %include "PDescriptor.h"
 %include "PFeaturePoint.h"
 %include "PFeatureRectangle.h"
+#ifdef SWIGJAVA
+%ignore papillon::PString::PString(const wchar_t*);
+%ignore papillon::PString::PString(const std::string&);
+%ignore papillon::PString::PString(const std::wstring&);
+#endif
 %include "PString.h"
 %include "PStringList.h"
 %include "PFeatureMap.h"
@@ -276,42 +428,14 @@ class PString;
 %include "PDetection.h"
 %include "PDetectionList.h"
 %include "PDetector.h"
-%include "PDetectorOptions.h"
 %include "PExampleSet.h"
 %include "PFrameToFrameTracker.h"
 %include "PGPSLocation.h"
 %include "PIdentifyResult.h"
 %include "PIdentifyResults.h"
 %include "PImageFilter.h"
-%include "PImageFilterOptions.h"
 %include "PInputVideoStream.h"
-%include "PMap.h"
-
-
-//%include "../../app/SZeOnWintel/supervisor/PSupervisor.h"
-
-%extend papillon::PInputVideoStream
-{
-  papillon::int32 GetInt(const papillon::PString & key)
-  {
-    papillon::int32 v=-1;
-    self->Get(key, v);
-    return v;
-  }
-  
-  papillon::PResult SetInt(const papillon::PString & key, papillon::int32 v)
-  {
-    return self->Set(key, v);
-  }
-  
-  papillon::int32 GetDouble(const papillon::PString & key)
-  {
-    double v=-1.0;
-    self->Get(key, v);
-    return v;
-  }
-    
-}
+%include "PFaceMetaData.h"
 %include "PMatchScore.h"
 %include "PMath.h"
 %include "PMemoryStream.h"
@@ -319,7 +443,6 @@ class PString;
 %template(ReadObjectDescription) papillon::PMemoryStream::ReadObject<papillon::PDescription>;
 
 %include "POutputVideoStream.h"
-//%include "PStdStream.h"
 %include "PTextFile.h"
 %include "PTime.h"
 %include "PTimer.h"
@@ -333,111 +456,31 @@ class PString;
 %include "PPath.h"
 %include "PVideoTools.h"
 %include "PAnalytics.h"
-%include "PList.h"
+
 %include "PFileIO.h"
+%template(WriteToFileWatchlist) papillon::PFileIO::WriteToFile<papillon::PWatchlist>;
+%template(ReadFromFileWatchlist) papillon::PFileIO::ReadFromFile<papillon::PWatchlist>;
+%include "PEntity.h"
+%include "PSqlDatabase.h"
+%include "PSqlQuery.h"
+%include "PStore.h"
+%include "PStoreIterator.h"
+%include "PDatabaseStore.h"
+//%include "POption.h"
+%include "PEnrollment.h"
+%include "PVerify.h"
 
-// The interfaces, not sure we need these though
-// %include "PAnalyticsInterface.h"
-// %include "PDescriberInterface.h"
-// %include "PDetectorInterface.h"
-// %include "PFrameToFrameTrackerInterface.h"
-// %include "PImageFilterInterface.h"
-// %include "POutputStream.h"
-
-// Lets include some templates for PList
-%template(PListInt) papillon::PList<int>;
-%template(PListEvent) papillon::PList<papillon::PEvent>;
-%template(PListGuid) papillon::PList<papillon::PGuid>;
-%template(PListDescription) papillon::PList<papillon::PDescription>;
-%template(PListDescriptor) papillon::PList<papillon::PDescriptor>;
-%template(PListImage) papillon::PList<papillon::PImage>;
-%template(PListString) papillon::PList<papillon::PString>;
-
+// templates
 %template(VectorInt) std::vector<int>;
 %template(VectorDescription) std::vector<papillon::PDescription>;
 %template(VectorDescriptor) std::vector<papillon::PDescriptor>;
 %template(VectorImage) std::vector<papillon::PImage>;
 %template(VectorPoint2Df) std::vector<papillon::PPoint2Df>;
 %template(VectorPoint2Di) std::vector<papillon::PPoint2Di>;
-//%template(VectorUChar) std::vector<unsigned char>;
 %template(VectorEvent) std::vector<papillon::PEvent>;
 %template(VectorGuid) std::vector<papillon::PGuid>;
 %template(VectorByte) std::vector<unsigned char>;
 %template(VectorString) std::vector<papillon::PString>;
 
-
-%template(PMapStringFeaturePoint) papillon::PMap<papillon::PString, papillon::PFeaturePoint>;
-%template(PMapStringFeatureRectangle) papillon::PMap<papillon::PString, papillon::PFeatureRectangle>;
-%template(PMapIteratorStringFeaturePoint) papillon::PMapIterator<papillon::PString, papillon::PFeaturePoint>;
-%template(PMapIteratorStringFeatureRectangle) papillon::PMapIterator<papillon::PString, papillon::PFeatureRectangle>;
-
-//%template(VectorPoint2Df> std::vector<papillon::PPoint2Df>;
-//%template(VectorPoint2Di> std::vector<papillon::PPoint2Di>;
-
-// Lets include some template definitions for PProperties
-%template(SetInt) papillon::PProperties::Set<papillon::int32>;
-%template(SetInt64) papillon::PProperties::Set<papillon::int64>;
-%template(SetString) papillon::PProperties::Set<papillon::PString>;
-%template(SetDouble) papillon::PProperties::Set<double>;
-%template(SetBoolean) papillon::PProperties::Set<bool>;
-%template(SetImage) papillon::PProperties::Set<papillon::PImage>;
-%template(SetDetection) papillon::PProperties::Set<papillon::PDetection>;
-%template(SetDescription) papillon::PProperties::Set<papillon::PDescription>;
-
-%template(GetInt) papillon::PProperties::Get<papillon::int32>;
-%template(GetInt64) papillon::PProperties::Get<papillon::int64>;
-%template(GetString) papillon::PProperties::Get<papillon::PString>;
-%template(GetDouble) papillon::PProperties::Get<double>;
-%template(GetBoolean) papillon::PProperties::Get<bool>;
-%template(GetImage) papillon::PProperties::Get<papillon::PImage>;
-%template(GetDetection) papillon::PProperties::Get<papillon::PDetection>;
-%template(GetDescription) papillon::PProperties::Get<papillon::PDescription>;
-%template(GetEvent) papillon::PProperties::Get<papillon::PList<papillon::PEvent> >;
-%template(GetGuid) papillon::PProperties::Get<papillon::PList<papillon::PGuid> >;
-
-
-%extend papillon::PProperties {
-  papillon::int32 GetInt(const papillon::PString & key)
-  {
-    papillon::int32 v=-1;
-    self->Get(key, v);
-    return v;
-  }
-
-}
- 
-%extend papillon::PProperties {
-   
-   papillon::int64 GetInt64(const papillon::PString & key)
-   {
-     papillon::int64 v=-1;
-     self->Get(key, v);
-     return v;
-   }    
-}
-
- 
-%extend papillon::PProperties {
-   
-   double GetDouble(const papillon::PString & key)
-   {
-     double v=-1.0;
-     self->Get(key, v);
-     return v;
-   }    
-}
-
-%extend papillon::PProperties {
-   
-   papillon::PString GetString(const papillon::PString & key)
-   {
-     papillon::PString v;
-     self->Get(key, v);
-     return v;
-   }    
-}
-
-// Some templates for reading and writing objects from file
 %template(WriteToFile) papillon::PFileIO::WriteToFile<papillon::PDescription>;
 %template(ReadFromFile) papillon::PFileIO::ReadFromFile<papillon::PDescription>;
-

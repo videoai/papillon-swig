@@ -7,6 +7,8 @@ project(papillon-swig C CXX)
 
 cmake_minimum_required(VERSION 3.1)
 
+set(CMAKE_CXX_STANDARD 11)
+
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_LIST_DIR}/cmake/Modules")
 
 include(FindPackageHandleStandardArgs)
@@ -36,7 +38,8 @@ papillon_print_variables_with_prefix(PAPILLON)
 include_directories(${PAPILLON_INCLUDE_DIR})
 
 add_subdirectory(python)
-add_subdirectory(ruby)
+#add_subdirectory(ruby)
+add_subdirectory(java)
 
 if(WIN32)
     add_subdirectory(csharp)

@@ -2,9 +2,9 @@
 
 The [Papillon SDK](https://videoai.net/papillon) is a software development kit that allows easy integration of [Digital Barriers](https://www.digitialbarriers.com) world-class video and image processing software within applications.  This includes Face Recognition, Face Detection, Intelligent Motion Detection, Alarm Verification and Camera Tampering detection.
 
-The [Papillon SDK](https://videoai.net/papillon) SDK is written in C++ and assembler when required to be lighting fast.  It also will leverage the power of GPU's and multi-core CPUs when available.
+The [Papillon SDK](https://videoai.net/papillon) SDK is written in C++ and assembler when required to be lightning fast.  It also will leverage the power of GPU's and multi-core CPUs when available.
 
-However, these days many applications are written in higher level languages such as Java, CSharp and Python.  In this repository are the tools and code required to generate bindings for other languages.  For this we make extensive of a great opensource tool called [SWIG](http://www.swig.org).
+However, these days many applications are written in higher level languages, such as Java, CSharp and Python.  In this repository are the tools and code that are required to generate bindings for other languages.  For this, we make extensive use of a great open-source application called [SWIG](http://www.swig.org).
 
 ## Quick Start
 

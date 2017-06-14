@@ -1,6 +1,6 @@
 # Papillon SDK - CMake File
 # -----------------------------------------------------------------------------
-# Description: Papillon Core Library
+# Description: Generate bindings for Papillon  n other languages using SWIG. 
 # -----------------------------------------------------------------------------
 
 project(papillon-swig C CXX)
@@ -30,20 +30,17 @@ function (papillon_print_variables_with_prefix _prefix)
     endif(VERBOSE)
 endfunction()
 
-
-find_package(SWIG REQUIRED)
+# We need a working installation of SWIG.  This is tested with SWIG version 3.0
+find_package(SWIG 3.0 REQUIRED)
 
 find_package(Papillon)
 papillon_print_variables_with_prefix(PAPILLON)
 include_directories(${PAPILLON_INCLUDE_DIR})
 
+# Comment out the languages you do not wish to generate bindings for.
 add_subdirectory(python)
-#add_subdirectory(ruby)
 add_subdirectory(java)
+add_subdirectory(csharp)
 
-if(WIN32)
-    add_subdirectory(csharp)
-    add_subdirectory(csharp/PapillonCore_CSharp)
-    add_subdirectory(csharp/PapillonCore_CSharpExample)
-    add_subdirectory(csharp/PapillonCore_CSharpUnitTests)
-endif()
+#add_subdirectory(ruby)
+

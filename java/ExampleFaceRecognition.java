@@ -10,7 +10,7 @@
 //
 //------------------------------------------------------------------------------
 // Description: 
-// This example shows how to use Papillon SDK in python for basic image manipulation
+// This example shows how to use Papillon SDK in Java for Face Recognition 
 //------------------------------------------------------------------------------
 
 

@@ -2,6 +2,7 @@
 INCLUDE(${SWIG_USE_FILE})
 
 find_package(PythonLibs 2.7 REQUIRED)
+
 papillon_print_variables_with_prefix("PYTHON_") 
 
 include_directories(${PYTHON_INCLUDE_DIR})

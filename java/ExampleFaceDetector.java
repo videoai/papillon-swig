@@ -17,7 +17,7 @@
 public class ExampleFaceDetector {
 
     static {
-        System.loadLibrary("PapillonJava");
+        System.loadLibrary("PapillonCoreJava");
         PapillonSDK.Initialise();
     }
 

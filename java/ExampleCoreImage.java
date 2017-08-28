@@ -17,7 +17,7 @@
 public class ExampleCoreImage {
 
     static {
-        System.loadLibrary("PapillonJava");
+        System.loadLibrary("PapillonCoreJava");
         PapillonSDK.Initialise();
     }
 

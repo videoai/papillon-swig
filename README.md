@@ -52,10 +52,11 @@ To compile the wrappers...
 ```
 mkdir build
 cd build
-cmake .. -DVERBOSE=1 -DCMAKE_INSTALL_PREFIX=/home/xxx/_install -DJAVA_PACKAGE=net.videoai.papillon
+cmake .. -DVERBOSE=1 -DCMAKE_INSTALL_PREFIX=/home/xxx/_install
 make
 make install
 ```
+It is possible to configure you own java package for java bindings. For example, add `-DJAVA_PACKAGE=net.videoai.papillon` to the cmake command. 
 
 You will also need to update your runtime library path.
 
@@ -83,7 +84,7 @@ python PapillonFaceDetect.py
 
 ### Java
 
-When you run SWIG and JAVA a set of Java files are generated for each Papillon class.  With your favourite Java compiler you need to turn these into class files. For example,
+When you run SWIG and JAVA a set of Java files are generated for each Papillon class. The default package is `net.videoai.papillon.core`. With your favourite Java compiler you need to turn these into class files. For example,
 
 ```
 export CLASSPATH=/home/xxx/_install/lib/java/PapillonCoreJava

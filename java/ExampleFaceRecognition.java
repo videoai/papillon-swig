@@ -13,6 +13,8 @@
 // This example shows how to use Papillon SDK in Java for Face Recognition 
 //------------------------------------------------------------------------------
 
+// REPLACE THE FOLLOWING
+// import com.your.company.package.*;
 
 public class ExampleFaceRecognition {
 

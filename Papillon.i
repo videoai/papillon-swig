@@ -1,5 +1,5 @@
 #ifdef SWIGJAVA
-%module PapillonJava
+%module(directors="1") PapillonJava
 #else
 %module Papillon
 #endif
@@ -314,6 +314,7 @@ class PString;
 
 %include "PapillonCommon.h"
 %include "PapillonSDK.h"
+%include "PRtti.h"
 %include "PObject.h"
 
 

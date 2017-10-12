@@ -1,5 +1,5 @@
 #ifdef SWIGJAVA
-%module(directors="1") PapillonJava
+%module PapillonJava
 #else
 %module Papillon
 #endif

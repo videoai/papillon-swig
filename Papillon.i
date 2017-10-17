@@ -314,6 +314,7 @@ class PString;
 
 %include "PapillonCommon.h"
 %include "PapillonSDK.h"
+%include "PRtti.h"
 %include "PObject.h"
 
 

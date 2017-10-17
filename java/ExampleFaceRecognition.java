@@ -13,11 +13,13 @@
 // This example shows how to use Papillon SDK in Java for Face Recognition 
 //------------------------------------------------------------------------------
 
+// REPLACE THE FOLLOWING if you override the default java package
+import net.videoai.papillon.core.*;
 
 public class ExampleFaceRecognition {
 
     static {
-        System.loadLibrary("PapillonJava");
+        System.loadLibrary("PapillonCoreJava");
         PapillonSDK.Initialise();
     }
 

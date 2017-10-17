@@ -22,6 +22,9 @@ The following developer tools must be installed:
 
 ## Quick Start
 
+### Choose the bindings to generate
+Edit the `/home/xxx/_install/CMakeLists.txt` and at the end of the file, comment out the languages you do not wish to generate bindings for. 
+
 ### Windows environment:
 - Open a command prompt (console)
 - Go to your 'papillon-swig' folder
@@ -37,7 +40,7 @@ cmake .. -G "Visual Studio 12 2013 Win64" -DSWIG_EXECUTABLE="PATH_SWIG\swig.exe"
 - Then, open Visual Studio solution file and compile the C# or Java library for your environment
 
 ### Linux environment:
-Make sure the following environment variables are seti in your _.bashrc_ file
+Make sure the following environment variables are set in your _.bashrc_ file
 
 ```
 export PAPILLON_INSTALL_DIR=/opt/Papillon
@@ -53,6 +56,7 @@ cmake .. -DVERBOSE=1 -DCMAKE_INSTALL_PREFIX=/home/xxx/_install
 make
 make install
 ```
+It is possible to configure you own java package for java bindings. For example, add `-DJAVA_PACKAGE=net.videoai.papillon` to the cmake command. 
 
 You will also need to update your runtime library path.
 
@@ -80,20 +84,21 @@ python PapillonFaceDetect.py
 
 ### Java
 
-When you run SWIG and JAVA a set of Java files are generated for each Papillon class.  With your favourite Java compiler you need to turn these into class files. For example,
+When you run SWIG and JAVA a set of Java files are generated for each Papillon class. The default package is `net.videoai.papillon.core`. With your favourite Java compiler you need to turn these into class files. For example,
 
 ```
-export CLASSPATH=/home/xxx/_install/lib/java/PapillonJava
-cd /home/xxx/_install/lib/java/PapillonJava
-javac *.java
+export CLASSPATH=/home/xxx/_install/lib/java/PapillonCoreJava
+cd /home/xxx/_install/lib/java/PapillonCoreJava
+javac -d . $(find . -name "*.java")
 ```
 
 Next, if you want to run one of the examples you need to make sure the java interpreter can pick up these class files. 
+Be sure you add the right import at the top of the example if you have specify a JAVA_PACKAGE to generate the bindings. 
 
 ```
 cd /home/xxx/_install/examples/java
 javac ExampleCoreImage.java
-java -cp /home/xxx/_install/lib/java/PapillonJava:. -Djava.library.path=/home/xxx/_install/lib ExampleCoreImage
+java -cp /home/xxx/_install/lib/java/PapillonCoreJava:. -Djava.library.path=/home/xxx/_install/lib ExampleCoreImage
 
 ```
 

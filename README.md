@@ -68,6 +68,8 @@ export LD_LIBRARY_PATH=/opt/Papillon/lib:/home/xxx/_install/lib
 
 ### Python
 
+Note, we include the Python wrappers by default in the official Papillon SDK and ideally you should use these. These are the better tested as they are used to build all our face-recognition services.  However, if you wish to generate your own Python wrappers please following the instructions below.
+
 To use the Python wrappers you need to update your _PYTHONPATH_.
 
 ```  
@@ -84,28 +86,24 @@ python PapillonFaceDetect.py
 
 ### Java
 
-When you run SWIG and JAVA a set of Java files are generated for each Papillon class. The default package is `net.videoai.papillon.core`. With your favourite Java compiler you need to turn these into class files. For example,
+When you run SWIG and JAVA a jar file is generated containing generated Java classes for each Papillon class.  A dynamic library is also generated.  These are copied over the installation directory. 
 
-```
-export CLASSPATH=/home/xxx/_install/lib/java/PapillonCoreJava
-cd /home/xxx/_install/lib/java/PapillonCoreJava
-javac -d . $(find . -name "*.java")
-```
+Note, the default package is `net.videoai.papillon.core`. 
 
-Next, if you want to run one of the examples you need to make sure the java interpreter can pick up these class files. 
+Next, if you want to run one of the examples you need to make sure the java compiler/interpreter can pick up this jar file and the corresponding shared library.
+
 Be sure you add the right import at the top of the example if you have specify a JAVA_PACKAGE to generate the bindings. 
 
 ```
 cd /home/xxx/_install/examples/java
-javac ExampleCoreImage.java
-java -cp /home/xxx/_install/lib/java/PapillonCoreJava:. -Djava.library.path=/home/xxx/_install/lib ExampleCoreImage
+javac -cp .:../../lib/PapillonCoreJava.jar ExampleCoreImage.java
+java -cp .:../../lib/PapillonCoreJava.jar -Djava.library.path=../../lib ExampleCoreImage
 
 ```
 
 ### C#
-When you run SWIG and CSharp a set of CSharp files are generated for each Papillon class.
-When you compile one of the examples you need to include these files.
-Alternatively, you can build a CSharp library from these files and include that in your project.
+
+When you run SWIG and CSharp a set of CSharp files are generated for each Papillon class.  When you compile one of the examples you need to include these files.  Alternatively, you can build a CSharp library from these files and include that in your project.
 
 For example
 
@@ -115,10 +113,9 @@ mcs -unsafe -out:ExampleCoreImage.exe ../../lib/csharp/src/*.cs ExampleCoreImage
 ./ExampleCoreImage.exe
 ```
 
-
 ### Ruby
 
-This is still experimental and you will need to turn this on in the main _CMakeList.txt_ file.
+This is still very experimental and you will need to turn this on in the main _CMakeList.txt_ file.
 
 ```  
 export RUBYLIB=/home/xxx/_install/lib

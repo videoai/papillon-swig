@@ -7,7 +7,7 @@ papillon_print_variables_with_prefix("PYTHON_")
 
 include_directories(${PYTHON_INCLUDE_DIR})
 
-SET(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+SET(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/src)
 
 SET(PYTHON_MODULE_NAME Papillon)
 
@@ -44,13 +44,3 @@ endif()
 
 INSTALL(FILES PapillonCoreExample.py PapillonCoreVideo.py PapillonFaceDetect.py PapillonMotionDetect.py PapillonPersonDetect.py DESTINATION examples/python)
 
-
-
-#ADD_DEPENDENCIES(${PYTHON_MODULE_NAME} PapillonCore)
-
-# copy across the Python dll to the binary directory
-# Note, the library will have the extension .pyd and pre-fixes by an underscore
-#papillon_copy_dll(_${PYTHON_MODULE_NAME})
-
-# copy across the Python generated code to binary directory as well.
-#papillon_postbuild_copy_file(_${PYTHON_MODULE_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/${PYTHON_MODULE_NAME}.py $ENV{PAPILLON_BUILD_BIN}/${CMAKE_BUILD_TYPE})

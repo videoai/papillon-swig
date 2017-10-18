@@ -34,6 +34,7 @@ endfunction()
 find_package(SWIG 3.0 REQUIRED)
 
 find_package(Papillon)
+
 papillon_print_variables_with_prefix(PAPILLON)
 include_directories(${PAPILLON_INCLUDE_DIR})
 

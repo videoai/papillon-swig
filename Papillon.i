@@ -36,6 +36,7 @@ import_array();
 #define PAPILLON_API_REMOTE_MONITORING
 #define FORCEINLINE
 #pragma SWIG nowarn=503 // the operator<<
+#pragma SWIG nowarn=509 // the operator<<
 #pragma SWIG nowarn=361 // the operator!
 #pragma SWIG nowarn=362 // the operator=
 #pragma SWIG nowarn=516 // overloaded methods 

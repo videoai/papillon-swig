@@ -70,5 +70,9 @@ else()
     INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/PapillonCoreJava.jar DESTINATION lib)
 endif()
 
+INSTALL(FILES ExampleCoreImage.java 
+            ExampleFaceDetector.java 
+            ExampleFaceRecognition.java 
+            DESTINATION examples/java)
 
 

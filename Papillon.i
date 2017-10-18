@@ -1,5 +1,5 @@
 #ifdef SWIGJAVA
-%module PapillonJava
+%module PapillonCoreJava
 #else
 %module Papillon
 #endif
@@ -38,6 +38,7 @@ import_array();
 #pragma SWIG nowarn=503 // the operator<<
 #pragma SWIG nowarn=361 // the operator!
 #pragma SWIG nowarn=362 // the operator=
+#pragma SWIG nowarn=516 // overloaded methods 
 
 #ifdef SWIGPYTHON
         
@@ -313,8 +314,8 @@ class PString;
 #endif
 
 %include "PapillonCommon.h"
-%include "PapillonSDK.h"
 %include "PRtti.h"
+%include "PapillonSDK.h"
 %include "PObject.h"
 
 

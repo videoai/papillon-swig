@@ -318,6 +318,7 @@ class PString;
 %include "PRtti.h"
 %include "PapillonSDK.h"
 %include "PObject.h"
+%include "PSystemInfo.h"
 
 
 

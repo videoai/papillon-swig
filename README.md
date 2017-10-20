@@ -101,6 +101,13 @@ java -cp .:../../lib/PapillonCoreJava.jar -Djava.library.path=../../lib ExampleC
 
 ```
 
+In a multi-threaded environment we have experienced some issues with a clash of symbols between the JVM and one of our plugins on Linux.  As a work-around you need to make sure our plugin symbol gets found first.  This can be done by setting the following environment variable.
+
+```
+export LD_PRELOAD=/opt/Papillon/plugins/libPPluginDescriberDnn.so
+```
+
+
 ### C#
 
 When you run SWIG and CSharp a set of CSharp files are generated for each Papillon class.  When you compile one of the examples you need to include these files.  Alternatively, you can build a CSharp library from these files and include that in your project.

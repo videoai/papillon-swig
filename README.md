@@ -111,7 +111,7 @@ export LD_PRELOAD=/opt/Papillon/plugins/libPPluginDescriberDnn.so
 
 #### Java Memory Management
 
-Java uses an automatic garbage collection process for memory management and this does not always work nicely with Swig generated wrappers.  In summary, it will depend how an Papillon object has been created.  For exampl, if the object has been created by a constructor or returned by value, Java will take ownership of the object and it will get automatically deleted by the garbage collector when it is out of scope.  When pointers or references are returned to Java, then Java does not take ownership.  In this case, you need to manually delete the object when it is no longer required.
+Java uses an automatic garbage collection process for memory management and this does not always work nicely with Swig generated wrappers.  In summary, it will depend how an Papillon object has been created.  For example, if the object has been created by a constructor or returned by value, Java will take ownership of the object and it will get automatically deleted by the garbage collector when it is out of scope.  However, when pointers or references are returned to Java, then Java does not take automatically take ownership and the objects will not be deleted.  In this case, you need to manually delete the object when it is no longer required.
 
 For more information see the official [SWIG](http://www.swig.org/Doc3.0/Java.html#Java_memory_management) documentation.
 

@@ -20,7 +20,7 @@ The following developer tools must be installed:
 - **Swig 3.0.X** (http://www.swig.org)
 - For Java: **Java Developer Kit 8** (JDK) (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - For C#: **Visual Studio 2013, 2015 or 2017 with C# environment**
-- **Papillon SDK 4.X or higher** (https://cmake.org/download/), installed and working. Make sure you have the environment PAPILLON_INSTALL_DIR set-up properly. 
+- **Papillon SDK 4.X or higher** (http://papillon-support.digitalbarriers.com/support/home), installed and working. Make sure you have the environment PAPILLON_INSTALL_DIR set-up properly. 
 
 ## Quick Start
 

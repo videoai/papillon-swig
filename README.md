@@ -20,7 +20,7 @@ The following developer tools must be installed:
 - **Swig 3.0.X** (http://www.swig.org)
 - For Java: **Java Developer Kit 8** (JDK) (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - For C#: **Visual Studio 2013, 2015 or 2017 with C# environment**
-- **Papillon SDK 4.X or higher** (http://papillon-support.digitalbarriers.com/support/home), installed and working. Make sure you have the environment PAPILLON_INSTALL_DIR set-up properly. 
+- **Papillon SDK 4.X or higher with your $PAPILLON_INSTALL_DIR environment variable set** (http://papillon-support.digitalbarriers.com/support/home), installed and working. Make sure you have the environment PAPILLON_INSTALL_DIR set-up properly. 
 
 ## Quick Start
 
@@ -33,10 +33,10 @@ Edit the `/home/xxx/_install/CMakeLists.txt` and at the end of the file, comment
 - Create and go to build directory: mkdir build & cd build
 - Generate Visual Studio solution for your environment using cmake command line, see example below.
 You will have to set path toward swig tool (replace PATH_SWIG by the appropriate path).
-For example, for Visual Studio 2013 (64-bit):
+For example, for Visual Studio 2017 (64-bit):
 
 ```
-cmake .. -G "Visual Studio 12 2013 Win64" -DSWIG_EXECUTABLE="PATH_SWIG\swig.exe" -DSWIG_DIR="PATH_SWIG\swigwin-3.0.12"
+cmake .. -G "Visual Studio 15 2017 Win64" -DSWIG_EXECUTABLE="PATH_SWIG\swig.exe" -DSWIG_DIR="PATH_SWIG\swigwin-3.0.12"
 ```
 
 - Then, open Visual Studio solution file and compile the C# or Java library for your environment

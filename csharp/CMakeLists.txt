@@ -14,18 +14,16 @@ SWIG_ADD_MODULE(${CSHARP_MODULE_NAME} csharp ../Papillon.i)
 
 SWIG_LINK_LIBRARIES(${CSHARP_MODULE_NAME} ${PAPILLON_LIBRARIES})
 
+set_target_properties(${CSHARP_MODULE_NAME} PROPERTIES
+                      LIBRARY_OUTPUT_DIRECTORY_DEBUG $ENV{PAPILLON_INSTALL_DIR}/bin
+                      LIBRARY_OUTPUT_DIRECTORY_RELEASE $ENV{PAPILLON_INSTALL_DIR}/bin
+)
+
+
 if(WIN32)
     INSTALL(TARGETS ${CSHARP_MODULE_NAME} DESTINATION bin)
 else()
     INSTALL(TARGETS ${CSHARP_MODULE_NAME} DESTINATION lib)
 endif()
-    
-INSTALL(DIRECTORY ${CMAKE_SWIG_OUTDIR} DESTINATION lib/csharp FILES_MATCHING PATTERN "*.cs" )
-
-INSTALL(FILES ExampleCoreImage.cs 
-            ExampleFaceDetector.cs 
-            ExampleFaceRecognition.cs 
-            ExampleImageFromByteArray.cs 
-            DESTINATION examples/csharp)
 
 

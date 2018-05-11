@@ -33,3 +33,10 @@ build/
 
 java/PapillonJava/
 csharp/src/
+csharp/examples/obj/
+csharp/lib/obj/
+
+/csharp/examples/ExampleCoreImage.csproj
+/csharp/examples/ExampleFaceDetector.csproj
+/csharp/examples/ExampleFaceRecognition.csproj
+/csharp/examples/ExampleImageFromByteArray.csproj

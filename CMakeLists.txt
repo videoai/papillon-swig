@@ -38,9 +38,15 @@ find_package(Papillon)
 papillon_print_variables_with_prefix(PAPILLON)
 include_directories(${PAPILLON_INCLUDE_DIR})
 
+
 # Comment out the languages you do not wish to generate bindings for.
-add_subdirectory(python)
-add_subdirectory(java)
+#add_subdirectory(python)
+#add_subdirectory(java)
 add_subdirectory(csharp)
+if(WIN32)
+	add_subdirectory(csharp/lib)
+	add_subdirectory(csharp/examples)
+endif()
+
 #add_subdirectory(ruby)
 

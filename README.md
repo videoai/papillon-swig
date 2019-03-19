@@ -28,18 +28,25 @@ The following developer tools must be installed:
 Edit the `/home/xxx/_install/CMakeLists.txt` and at the end of the file, comment out the languages you do not wish to generate bindings for. 
 
 ### Windows environment:
+
+- Make sure you have added %PAPILLON_INSTALL_DIR%/bin to you %PATH% environment variable.
 - Open a command prompt (console)
 - Go to your 'papillon-swig' folder
 - Create and go to build directory: mkdir build & cd build
 - Generate Visual Studio solution for your environment using cmake command line, see example below.
-You will have to set path toward swig tool (replace PATH_SWIG by the appropriate path).
-For example, for Visual Studio 2017 (64-bit):
 
 ```
-cmake .. -G "Visual Studio 15 2017 Win64" -DSWIG_EXECUTABLE="PATH_SWIG\swig.exe" -DSWIG_DIR="PATH_SWIG\swigwin-3.0.12"
+cmake .. -G "Visual Studio 15 2017 Win64"
 ```
 
-- Then, open Visual Studio solution file and compile the C# or Java library for your environment
+Note, please make sure you have added the location of the swig executable to your PATH environment variable.  You should be able to run swig from the comand line.
+
+```
+swig -version
+```
+
+- Then, open Visual Studio solution file and compile the C# or Java library and examples for your environment
+- Note, on VS2017 the indexing seems to be broken.  After you have compiled the examples you need to shutdown Visual Studio and recursively delete the hidden .vs directory.  When you restart VS2017 the indexing will work.
 
 ### Linux environment:
 Make sure the following environment variables are set in your _.bashrc_ file

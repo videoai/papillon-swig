@@ -32,7 +32,6 @@
 build/
 
 java/PapillonJava/
-csharp/src/
 csharp/examples/obj/
 csharp/lib/obj/
 

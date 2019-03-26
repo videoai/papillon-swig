@@ -55,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\src\*.cs" />
+    <Compile Include="..\..\..\csharp\lib\src\*.cs" />
     <Compile Include="..\..\..\csharp\lib\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
